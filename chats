@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+"""chats — navegador único de conversas de todos os CLIs de IA."""
+import os
+import signal
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+
+signal.signal(signal.SIGPIPE, signal.SIG_DFL)  # `chats ... | head` sem erro feio
+
+from chats_lib.cli import main  # noqa: E402
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except BrokenPipeError:
+        os.dup2(os.open(os.devnull, os.O_WRONLY), sys.stdout.fileno())
+        sys.exit(0)
