@@ -11,7 +11,7 @@ from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from chats_lib import doctor  # noqa: E402
+from chats_lib import doctor, registry  # noqa: E402
 
 
 class TestStatusFzf(unittest.TestCase):
@@ -45,6 +45,10 @@ class TestStatusFzf(unittest.TestCase):
 
 class TestRodar(unittest.TestCase):
     def test_doctor_completo_sai_limpo(self):
+        # saída limpa pressupõe todas as fontes saudáveis nesta máquina
+        _, erros = registry.scan()
+        if erros:
+            self.skipTest(f"fonte(s) indisponíveis: {erros}")
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf):
             codigo = doctor.rodar(ligado=False)

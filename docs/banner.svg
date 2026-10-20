@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="chats — um picker fzf para as conversas de todos os CLIs de IA">
+  <defs>
+    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#161b22"/>
+      <stop offset="0.14" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+    <style>
+      text { font-family: ui-monospace, 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace; }
+    </style>
+  </defs>
+
+  <!-- janela de terminal -->
+  <rect x="8" y="8" width="1184" height="284" rx="10" fill="url(#win)" stroke="#30363d"/>
+  <circle cx="34" cy="27" r="6" fill="#ff5f57"/>
+  <circle cx="54" cy="27" r="6" fill="#febc2e"/>
+  <circle cx="74" cy="27" r="6" fill="#28c840"/>
+  <text x="600" y="31" text-anchor="middle" font-size="12" fill="#7d8590">thiago@desktop: ~/Documentos/codesnippets/chats-cli</text>
+  <line x1="8" y1="42" x2="1192" y2="42" stroke="#21262d"/>
+
+  <!-- esquerda: marca -->
+  <text x="40" y="84" font-size="16"><tspan fill="#7d8590">$</tspan><tspan fill="#e6edf3"> chats --all</tspan></text>
+
+  <text x="40" y="152" font-size="64" font-weight="bold" fill="#e6edf3">chats</text>
+  <rect x="238" y="106" width="30" height="54" rx="2" fill="#56d364">
+    <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.42;.5;.92;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <text x="40" y="192" font-size="15" fill="#9da7b3">todas as conversas de todos os CLIs de IA</text>
+  <text x="40" y="212" font-size="15" fill="#9da7b3">num picker fzf só — escopado ao diretório</text>
+
+  <text x="40" y="248" font-size="15">
+    <tspan fill="#39c5cf">opencode</tspan><tspan fill="#454d55"> · </tspan><tspan fill="#56d364">codex</tspan><tspan fill="#454d55"> · </tspan><tspan fill="#e879f9">agy</tspan><tspan fill="#454d55"> · </tspan><tspan fill="#e3b341">devin</tspan><tspan fill="#454d55"> · </tspan><tspan fill="#ff7b72">freebuff</tspan><tspan fill="#454d55"> · </tspan><tspan fill="#58a6ff">gemini</tspan>
+  </text>
+  <text x="40" y="272" font-size="12" fill="#7d8590">sqlite read-only · fingerprint ~10 ms · só stdlib · 91 testes</text>
+
+  <!-- direita: mini fzf -->
+  <rect x="608" y="64" width="552" height="184" rx="6" fill="#010409" stroke="#21262d"/>
+  <text x="624" y="92" font-size="11.5" fill="#7d8590">ENTER abre o menu · / busca · ESC sai</text>
+
+  <text x="624" y="116" font-size="12"><tspan fill="#484f58">13/10  </tspan><tspan fill="#e879f9">agy      </tspan><tspan fill="#c9d1d9">Pixel Art Flower Animations · 1095 msgs</tspan></text>
+  <text x="624" y="138" font-size="12"><tspan fill="#484f58">12/10  </tspan><tspan fill="#e3b341">devin    </tspan><tspan fill="#c9d1d9">Melhoria Tour Cósmico WarpSpace… · bypass</tspan></text>
+  <text x="624" y="160" font-size="12"><tspan fill="#484f58">07/10  </tspan><tspan fill="#56d364">codex    </tspan><tspan fill="#c9d1d9">Guardian review</tspan></text>
+  <text x="624" y="182" font-size="12"><tspan fill="#484f58">26/04  </tspan><tspan fill="#58a6ff">gemini   </tspan><tspan fill="#c9d1d9">Criar e refatorar componentes React…</tspan></text>
+
+  <rect x="612" y="191" width="544" height="24" fill="#21262d"/>
+  <text x="616" y="208" font-size="12"><tspan fill="#f778ba">&gt; </tspan><tspan fill="#8b949e">13/10  </tspan><tspan fill="#e3b341" font-weight="bold">devin    </tspan><tspan fill="#ffffff" font-weight="bold">Desenvolvimento remoto via Tailscal… · bypass</tspan></text>
+
+  <text x="624" y="236" font-size="12"><tspan fill="#e6edf3">&gt; tailscale</tspan></text>
+  <text x="1148" y="236" font-size="12" fill="#7d8590" text-anchor="end">4/580 ─</text>
+</svg>
