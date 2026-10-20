@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/banner.svg" width="840" alt="chats — todas as conversas dos CLIs de IA num picker fzf só">
+<img src="banner.svg" width="840" alt="chats — todas as conversas dos CLIs de IA num picker fzf só">
 
-**[English version → README.md](../../README.md)**
+**[English version → README.md](../README.md)**
 
 </div>
 
@@ -11,9 +11,9 @@
 Lista as conversas de **todos** os CLIs de IA da máquina numa só tela, escopadas à
 pasta em que você está, e abre no CLI nativo ou importa pro OpenCode.
 
-![demo](../demo.webm)
+![demo](demo.webm)
 
-**[▶ demo em vídeo — 30s](../demo.webm)** — terminal real: picker fzf com 580
+**[▶ demo em vídeo — 30s](demo.webm)** — terminal real: picker fzf com 580
 conversas de 6 CLIs, busca difusa + preview, menu da conversa, `doctor` e o
 cache por fingerprint (~27 ms de revalidação).
 
