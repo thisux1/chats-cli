@@ -1,162 +1,169 @@
 <div align="center">
 
-<img src="docs/banner.svg" width="840" alt="chats — todas as conversas dos CLIs de IA num picker fzf só">
+<img src="docs/banner.svg" width="840" alt="chats — every AI CLI conversation in a single fzf picker">
 
-**[English version → README.en.md](README.en.md)**
+**[Versão em português → README.pt-BR.md](README.pt-BR.md)**
 
 </div>
 
 # chats
 
-Lista as conversas de **todos** os CLIs de IA da máquina numa só tela, escopadas à
-pasta em que você está, e abre no CLI nativo ou importa pro OpenCode.
+Lists conversations from **every** AI CLI on the machine in a single screen,
+scoped to the directory you're in — then opens them in the native CLI or imports
+them into OpenCode.
 
 ![demo](docs/demo.webm)
 
-**[▶ demo em vídeo — 30s](docs/demo.webm)** — terminal real: picker fzf com 580
-conversas de 6 CLIs, busca difusa + preview, menu da conversa, `doctor` e o
-cache por fingerprint (~27 ms de revalidação).
+**[▶ video demo — 30s](docs/demo.webm)** — real terminal footage: the fzf picker
+with 120 conversations from 6 CLIs, fuzzy search + preview, the conversation
+menu, `doctor`, and the fingerprint cache (~27 ms revalidation).
 
 <video src="docs/demo.webm" width="720" controls muted></video>
 
 ## Features
 
-- **Escopo por diretório** — num repo mostra só as conversas daquele projeto; na
-  `~` mostra tudo sob `$HOME`, agrupado por pasta
-- **Busca difusa fzf** sobre título + pasta, com **preview** da conversa à direita
-- **Abrir no nativo** (`codex resume`, `devin -r`, `agy --conversation`, …) ou
-  **importar pro OpenCode** com dedupe e ledger idempotente
-- **Índice local** com fingerprint por fonte — **~10 ms** de revalidação
-- **Dedupe** `⇄` (já importada) e `≡` (mesma conversa em 2+ CLIs)
-- `doctor`, `sync`, `which`, `export` md/json — só stdlib; sem fzf cai numa
-  lista numerada
-- **Nunca escreve em banco de terceiro**: todo SQLite abre `mode=ro` +
+- **Directory scoping** — inside a repo shows only that project's conversations;
+  in `~` shows everything under `$HOME`, grouped by folder
+- **fzf fuzzy search** over title + path, with a **conversation preview** pane
+  on the right
+- **Open natively** (`codex resume`, `devin -r`, `agy --conversation`, …) or
+  **import into OpenCode** with dedupe and an idempotent ledger
+- **Local index** with a per-source fingerprint — **~10 ms** revalidation
+- **Dedupe marks** `⇄` (already imported) and `≡` (same conversation in 2+ CLIs)
+- `doctor`, `sync`, `which`, `export` md/json — stdlib only; falls back to a
+  numbered list when fzf is absent
+- **Never writes to third-party databases**: every SQLite opens `mode=ro` +
   `busy_timeout`
 
-## Fontes suportadas
+## Supported sources
 
-| fonte | de onde lê | retomar com |
+| source | reads from | resume with |
 |---|---|---|
 | `opencode` | `session_v2` (SQLite, `mode=ro`) | `opencode -s <id>` |
-| `codex` | 1ª linha de cada rollout | `codex resume <id>` |
+| `codex` | 1st line of each rollout | `codex resume <id>` |
 | `agy` | `conversation_summaries.db` | `agy --conversation <id>` |
-| `devin` | `sessions` + 8 nós p/ a prévia | `devin -r <id>` |
-| `freebuff` | `chat-meta.json` | `freebuff --continue <pasta>` |
-| `gemini` | `~/.gemini/tmp/*/chats` | — (CLI inativo: `IneligibleTierError`) |
+| `devin` | `sessions` + 8 nodes for the preview | `devin -r <id>` |
+| `freebuff` | `chat-meta.json` | `freebuff --continue <dir>` |
+| `gemini` | `~/.gemini/tmp/*/chats` | — (inactive CLI: `IneligibleTierError`) |
 
-Uma fonte ausente ou quebrada vira `aviso:` no stderr — as outras cinco seguem.
+A missing or broken source becomes an `aviso:` on stderr — the other five keep
+working.
 
-## Uso
+## Usage
 
 ```sh
-chats                     # fzf com as conversas do projeto/pasta atual
-chats                     # na home: tudo sob $HOME, agrupado por pasta
-chats --all               # ignora o escopo
-chats --tree              # agrupa por pasta mesmo fora da home
-chats --cli codex,devin   # só algumas fontes
-chats --since 7d          # janela temporal (7d, 12h, hoje, 2026-09)
-chats --format json       # para script
-chats --no-pick           # tabela sem abrir o fzf
-chats which               # por que esta pasta mostra estas conversas
-chats doctor              # saúde de cada fonte + compatibilidade do fzf
-chats sync [--force]      # revalida as fontes e reescreve só o que mudou
-chats preview <key>       # o que o fzf mostra no painel da direita
-chats export <key> --to md|json [-o arquivo]
-chats open <key> --native [--dir <caminho>]
+chats                     # fzf with the conversations of the current project/dir
+chats                     # in home: everything under $HOME, grouped by folder
+chats --all               # ignores the scope
+chats --tree              # group by folder even outside home
+chats --cli codex,devin   # only some sources
+chats --since 7d          # time window (7d, 12h, hoje, 2026-09)
+chats --format json       # for scripting
+chats --no-pick           # table without opening fzf
+chats which               # why this directory shows these conversations
+chats doctor              # per-source health + fzf compatibility
+chats sync [--force]      # revalidates sources, rewrites only what changed
+chats preview <key>       # what fzf shows in the right pane
+chats export <key> --to md|json [-o file]
+chats open <key> --native [--dir <path>]
 ```
 
-`<key>` = `<cli>:<id>`, ex.: `codex:01a10d84-4186-…`, `freebuff:codesnippets/2026-10-05T20-53-05.352Z`.
+`<key>` = `<cli>:<id>`, e.g. `codex:01a10d84-4186-…`, `freebuff:codesnippets/2026-10-05T20-53-05.352Z`.
 
 ### Picker (fzf)
 
-| tecla | ação |
+| key | action |
 |---|---|
-| `↑`/`↓` ou `Ctrl-J`/`Ctrl-K` | move a seleção |
-| digitar | busca difusa sobre data, cli, título e pasta |
-| `Enter` | abre o menu da conversa |
-| `Esc` | sai |
+| `↑`/`↓` or `Ctrl-J`/`Ctrl-K` | move the selection |
+| type | fuzzy search over date, cli, title and path |
+| `Enter` | opens the conversation menu |
+| `Esc` | quit |
 
-Menu pós-`Enter`:
+Menu after `Enter`:
 
 ```
-1  ▶  Abrir no nativo        codex resume <id>
-2  ⇄  Abrir no OpenCode      (importa e abre)
-3  👁  Ler no pager
-4  ⧉  Copiar id / comando
-0  ⬅  Voltar
+1  ▶  Open natively          codex resume <id>   (labels shown in pt-BR)
+2  ⇄  Open in OpenCode       (imports and opens)
+3  👁  Read in pager
+4  ⧉  Copy id / command
+0  ⬅  Back
 ```
 
-Duas marcas na linha:
+Two marks on each line:
 
-- `⇄` a conversa já existe no OpenCode (dedupe devin, por `(título, diretório)`)
-- `≡` mesma conversa em 2+ CLIs — mesma pasta, mesma 1ª frase e mesmo dia
+- `⇄` the conversation already exists in OpenCode (devin dedupe by
+  `(title, directory)`)
+- `≡` same conversation in 2+ CLIs — same folder, same first sentence, same day
 
-## Escopo por diretório
+## Directory scoping
 
-| onde você está | o que aparece |
+| where you are | what shows up |
 |---|---|
-| `~` | tudo sob `$HOME`, agrupado por pasta |
-| pasta com repositório git | só a raiz do repo e os descendentes |
-| pasta comum | ela e os descendentes |
+| `~` | everything under `$HOME`, grouped by folder |
+| folder with a git repo | only the repo root and descendants |
+| plain folder | itself and descendants |
 
-`chats which` imprime a regra aplicada, a raiz resolvida e as contagens por pasta.
+`chats which` prints the applied rule, the resolved root and per-folder counts.
 
-## Importar pro OpenCode
+## Importing into OpenCode
 
-`chats open <key> --opencode` manda
-`POST /api/experimental/session/import` com `{info, messages, location}` —
-`location.directory` **é obrigatório**: sem ele a sessão cai no projeto `global`
-e some da listagem.
+`chats open <key> --opencode` sends
+`POST /api/experimental/session/import` with `{info, messages, location}` —
+`location.directory` **is required**: without it the session lands in the
+`global` project and disappears from the listing.
 
-- diretório inexistente (ex.: gemini apontando pra repo apagado) → recusa e pede
-  `--dir <caminho>`
-- reimportar é no-op: ledger em `~/.local/share/chats/imports.json` + verificação
-  de existência
-- devin já importado é detectado por `(título, diretório)` e a sessão existente
-  é aberta
+- nonexistent directory (e.g. gemini pointing at a deleted repo) → refuses and
+  asks for `--dir <path>`
+- reimporting is a no-op: ledger in `~/.local/share/chats/imports.json` +
+  existence check
+- an already-imported devin conversation is detected by `(title, directory)`
+  and the existing session is opened
 
-## Índice local (performance)
+## Local index (performance)
 
-O que cada fonte devolve fica em `~/.local/share/chats/index.db` e só é relido
-quando a **fingerprint** dela muda — contagem + `mtime` (arquivos) ou contagem +
-`MAX(coluna)` (SQLite), **~10 ms no total**:
+Each source's output lives in `~/.local/share/chats/index.db` and is only
+re-read when its **fingerprint** changes — count + `mtime` (files) or count +
+`MAX(column)` (SQLite), **~10 ms total**:
 
-| | fonte direta | com índice |
+| | direct source | with index |
 |---|---|---|
-| quente | 262 ms | **77 ms** |
-| frio (páginas dos bancos fora da cache) | 2 290 ms | **93 ms** |
+| warm | 262 ms | **77 ms** |
+| cold (db pages out of cache) | 2 290 ms | **93 ms** |
 
-- `chats sync` revalida fonte a fonte: `atualizado` · `reescrevido` ·
-  `sem mudar` · `erro` (`--force` reescreve tudo; `--cli codex,devin` filtra)
-- `CHATS_SEM_INDICE=1 chats …` ignora o índice — toggle de diagnóstico
-- se o índice falhar (disco cheio, permissão, linha corrompida) o scan lê a fonte
-  direta: ele é aceleração, nunca dependência. Bancos de terceiro seguem
-  intocados (`mode=ro`)
-- recomeçar do zero: `rm ~/.local/share/chats/index.db`
+- `chats sync` revalidates source by source: `atualizado` (updated) ·
+  `reescrevido` (rewritten) · `sem mudar` (unchanged) · `erro`
+  (`--force` rewrites everything; `--cli codex,devin` filters)
+- `CHATS_SEM_INDICE=1 chats …` ignores the index — diagnostic toggle
+- if the index fails (full disk, permissions, corrupt row) the scan reads the
+  source directly: it's acceleration, never a dependency. Third-party databases
+  stay untouched (`mode=ro`)
+- start from scratch: `rm ~/.local/share/chats/index.db`
 
-## Instalação
+## Install
 
-Requer **Python ≥ 3.10** (só stdlib) e opcionalmente **fzf** no `PATH` — sem ele
-a lista numerada assume:
+Requires **Python ≥ 3.10** (stdlib only) and optionally **fzf** on the `PATH` —
+without it the numbered list takes over:
 
 ```sh
 git clone https://github.com/thisux1/chats-cli && cd chats-cli
 ln -sf "$(pwd)/chats" ~/.local/bin/chats
-python3 -m unittest discover -s tests   # 91 testes, stdlib (sem pytest)
+python3 -m unittest discover -s tests   # 91 tests, stdlib (no pytest)
 ```
 
-## Estrutura
+## Layout
 
 `chats_lib/{models,escopo,registry,store,render,picker,openers,cli,doctor,import_opencode}.py`
-mais `chats_lib/adapters/{opencode,codex,agy,devin,freebuff,gemini}.py`. Um módulo
-por CLI expõe só `CLI`, `FONTES`, `scan()`, `carregar()`, `resolver()`,
-`fingerprint()`; qualquer fonte que falhe vira aviso e o resto segue.
+plus `chats_lib/adapters/{opencode,codex,agy,devin,freebuff,gemini}.py`. One
+module per CLI exposing only `CLI`, `FONTES`, `scan()`, `carregar()`,
+`resolver()`, `fingerprint()`; any failing source becomes a warning and the
+rest keeps going.
 
-## Limitações conhecidas
+## Known limitations
 
-- `agy`: conteúdo completo indisponível (protobuf sem schema) — a prévia usa a
-  coluna `preview` do banco
-- `gemini`: sem comando de retomada (CLI inativo); o menu mostra o motivo
-- `freebuff`: conversas abortadas sem `chat-meta.json` entram sem conteúdo
+- `agy`: full content unavailable (schema-less protobuf) — the preview uses the
+  database's `preview` column
+- `gemini`: no resume command (inactive CLI); the menu shows the reason
+- `freebuff`: aborted chats without `chat-meta.json` come in without content
 
-Plano completo, decisões e descobertas da implementação: [`PLAN.md`](./PLAN.md).
+Full plan, decisions and implementation findings (in pt-BR):
+[`PLAN.md`](./PLAN.md).
