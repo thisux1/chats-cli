@@ -2,7 +2,7 @@
 
 <img src="docs/banner.svg" width="840" alt="chats — every AI CLI conversation in a single fzf picker">
 
-**[Versão em português → README.pt-BR.md](README.pt-BR.md)**
+**[Versão em português → README.pt-BR.md](docs/README.pt-BR.md)**
 
 </div>
 
