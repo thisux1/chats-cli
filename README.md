@@ -17,7 +17,7 @@ with 120 conversations from 6 CLIs, fuzzy search + preview, the conversation
 menu, `doctor`, and the fingerprint cache (~27 ms revalidation).
 
 <p align="center">
-  <video src="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm" poster="docs/demo-poster.png" width="720" autoplay loop muted playsinline controls></video>
+  <a href="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm"><img src="docs/demo.gif" width="720" alt="demo" /></a>
 </p>
 
 ## Screenshots

@@ -32,7 +32,7 @@ flowchart LR
 ```
 
 <p align="center">
-  <video src="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm" poster="demo-poster.png" width="720" autoplay loop muted playsinline controls></video>
+  <a href="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm"><img src="demo.gif" width="720" alt="demo" /></a>
 </p>
 
 ## Features
