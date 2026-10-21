@@ -11,13 +11,29 @@
 Lista as conversas de **todos** os CLIs de IA da máquina numa só tela, escopadas à
 pasta em que você está, e abre no CLI nativo ou importa pro OpenCode.
 
-![demo](demo.webm)
-
-**[▶ demo em vídeo — 30s](demo.webm)** — terminal real: picker fzf com 580
-conversas de 6 CLIs, busca difusa + preview, menu da conversa, `doctor` e o
+**[▶ demo completo](https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm)** — terminal real: picker fzf com 120 conversas de 6 CLIs, busca difusa + preview, menu da conversa, `doctor` e o
 cache por fingerprint (~27 ms de revalidação).
 
-<video src="../demo.webm" width="720" controls muted></video>
+## Capturas de tela
+
+<p align="center">
+  <img src="screenshots/01-picker.png" width="31%" />
+  <img src="screenshots/02-actions.png" width="31%" />
+  <img src="screenshots/03-doctor.png" width="31%" />
+</p>
+
+## Fluxo
+
+```mermaid
+flowchart LR
+    A["6 stores de CLI<br/>codex · devin · agy · gemini · opencode · freebill"] --> I["index.db<br/>cache fingerprint ~27ms"]
+    I --> P["picker fzf<br/>difuso · preview · escopo por dir"]
+    P --> O["abrir nativo / importar OpenCode"]
+```
+
+<p align="center">
+  <video src="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm" poster="demo-poster.png" width="720" autoplay loop muted playsinline controls></video>
+</p>
 
 ## Features
 

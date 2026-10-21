@@ -12,13 +12,32 @@ Lists conversations from **every** AI CLI on the machine in a single screen,
 scoped to the directory you're in — then opens them in the native CLI or imports
 them into OpenCode.
 
-![demo](docs/demo.webm)
-
-**[▶ video demo — 30s](docs/demo.webm)** — real terminal footage: the fzf picker
+**[▶ demo completo](https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm)** — real terminal footage: the fzf picker
 with 120 conversations from 6 CLIs, fuzzy search + preview, the conversation
 menu, `doctor`, and the fingerprint cache (~27 ms revalidation).
 
-<video src="docs/demo.webm" width="720" controls muted></video>
+<p align="center">
+  <video src="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm" poster="docs/demo-poster.png" width="720" autoplay loop muted playsinline controls></video>
+</p>
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/01-picker.png" width="31%" />
+  <img src="docs/screenshots/02-actions.png" width="31%" />
+  <img src="docs/screenshots/03-doctor.png" width="31%" />
+</p>
+
+## Fluxo
+
+```mermaid
+flowchart LR
+    A["6 stores de CLI<br/>codex · devin · agy · gemini · opencode · freebill"] --> I["index.db<br/>fingerprint cache ~27ms"]
+    I --> P["fzf picker<br/>fuzzy · preview · escopo por dir"]
+    P --> O["open nativo / import OpenCode"]
+```
+
+
 
 ## Features
 
