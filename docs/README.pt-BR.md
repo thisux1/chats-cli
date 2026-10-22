@@ -11,8 +11,14 @@
 Lista as conversas de **todos** os CLIs de IA da máquina numa só tela, escopadas à
 pasta em que você está, e abre no CLI nativo ou importa pro OpenCode.
 
+## Demo
+
 **[▶ demo completo](https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm)** — terminal real: picker fzf com 120 conversas de 6 CLIs, busca difusa + preview, menu da conversa, `doctor` e o
 cache por fingerprint (~27 ms de revalidação).
+
+<p align="center">
+  <a href="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm"><img src="demo.gif" width="720" alt="demo" /></a>
+</p>
 
 ## Capturas de tela
 
@@ -30,10 +36,6 @@ flowchart LR
     I --> P["picker fzf<br/>difuso · preview · escopo por dir"]
     P --> O["abrir nativo / importar OpenCode"]
 ```
-
-<p align="center">
-  <a href="https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm"><img src="demo.gif" width="720" alt="demo" /></a>
-</p>
 
 ## Features
 

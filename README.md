@@ -12,6 +12,8 @@ Lists conversations from **every** AI CLI on the machine in a single screen,
 scoped to the directory you're in — then opens them in the native CLI or imports
 them into OpenCode.
 
+## Demo
+
 **[▶ demo completo](https://github.com/thisux1/thisux1/releases/download/demos/chats-cli.webm)** — real terminal footage: the fzf picker
 with 120 conversations from 6 CLIs, fuzzy search + preview, the conversation
 menu, `doctor`, and the fingerprint cache (~27 ms revalidation).
